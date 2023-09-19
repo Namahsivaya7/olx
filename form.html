@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>OLX | Home</title>
+    <link rel="website icon" type='png'
+        href="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ0gG2zH91ed041bLUJsmbjPaF4MuGs4OXIUh1cTnOyEO-75Hh7pCNScMjnBio434qo9NQ&usqp=CAU">
+    <link href="//cdn.muicss.com/mui-0.10.3/css/mui.min.css" rel="stylesheet" type="text/css" />
+    <link href="/css/styles.css" rel="stylesheet" type="text/css" />
+    <script src="//cdn.muicss.com/mui-0.10.3/js/mui.min.js"></script>
+</head>
+
+<body>
+    <header class="mui-appbar mui--z1">
+        <div class="mui-container">
+            <table>
+                <tr class="mui--appbar-height">
+                    <td class="mui--text-title">OLX</td>
+                    <td class="mui--text-right">
+                        <ul class="mui-list--inline mui--text-body2">
+                            <li><a href="index.html">Home</a></li>
+                            <li><a href="#">Pricing</a></li>
+                            <li>
+                                <a id="sign-in" href="/signin.html">Login</a>
+                                <a id="logout" style="display: none" onclick="doLogout(event)">Logout</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </header>
+
+    <div id="root"></div>
+    <footer>
+        <div class="mui-container mui--text-center">
+            Made with ♥ by <a href="https://www.muicss.com">T3P</a>
+        </div>
+    </footer>
+    <script src="/js/scripts.js"></script>
+    <script src="js/items.js"></script>
+    <script>
+        const root = document.querySelector("#root");
+        const form = document.createElement("form");
+        form.classList.add('mui-form');
+
+        const formDiv = document.createElement('div');
+        formDiv.classList.add('mui-textfield');
+
+
+
+        const name = document.createElement("input");
+        formDiv.appendChild(name);
+        form.appendChild(formDiv);
+        name.setAttribute("text", "type");
+        name.setAttribute("name", "Itemname");
+        name.setAttribute("placeholder", "Item name");
+
+        const price = document.createElement("input");
+        formDiv.appendChild(price);
+        price.setAttribute("text", "type");
+        price.setAttribute("Number", "price");
+        price.setAttribute("placeholder", "price");
+
+        const postedBy = document.createElement("input")
+        formDiv.appendChild(postedBy);
+        postedBy.setAttribute("text", "type");
+        postedBy.setAttribute("postedb", "name");
+        postedBy.setAttribute("placeholder", "Address");
+
+        const submit = document.createElement("button");
+        formDiv.appendChild(submit);
+        submit.innerHTML = "Submit";
+        submit.setAttribute("type", "submit");
+        submit.setAttribute("name", "submit");
+        submit.setAttribute("onclick", "addItem");
+
+        root.appendChild(form);
+        function addItem(event) {
+            event.preventDefault();
+            const item = new OlxItem(name.value, price.value, "https://d2xamzlzrdbdbn.cloudfront.net/products/0f890dc4-9ab0-4e35-9f6a-a8a49d0b8fb922011222.jpg", location.value, JSON.parse(sessionStorage.getItem('user')).name, new Date());
+            MOCK_ITEMS.push(item);
+            localStorage.setItem("items", JSON.stringify(MOCK_ITEMS));
+            window.location.href = "/index.html";
+        }
+    </script>
+</body>
+
+</html>
